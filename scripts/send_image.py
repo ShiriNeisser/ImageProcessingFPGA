@@ -21,6 +21,10 @@ Requirements:
 import serial
 import sys
 import time
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.join(SCRIPT_DIR, '..')
 
 # Serial port configuration
 SERIAL_PORT = 'COM8'       # COM port for FPGA's USB-UART bridge (adjust as needed)
@@ -49,9 +53,10 @@ def read_mem_file(filename):
 def main():
     # Read the three color channel files
     print("Reading MEM files...")
-    red_data = read_mem_file('red.mem')
-    green_data = read_mem_file('green.mem')
-    blue_data = read_mem_file('blue.mem')
+    red_data = read_mem_file(os.path.join(PROJECT_ROOT, 'mem', 'red.mem'))
+    green_data = read_mem_file(os.path.join(PROJECT_ROOT, 'mem', 'green.mem'))
+    blue_data = read_mem_file(os.path.join(PROJECT_ROOT, 'mem', 'blue.mem'))
+
 
     # Concatenate in planar order: R + G + B (must match FPGA memory layout)
     all_data = red_data + green_data + blue_data

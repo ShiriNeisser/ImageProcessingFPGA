@@ -20,6 +20,12 @@ Requirements:
 import serial
 import sys
 from PIL import Image
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.join(SCRIPT_DIR, '..')
+
+
 
 # Serial port configuration
 SERIAL_PORT = 'COM8'       # COM port for FPGA's USB-UART bridge (adjust as needed)
@@ -82,7 +88,7 @@ def main():
                         idx += 1
 
             # Save the reconstructed image
-            output_filename = 'final_shiny_image.jpg'
+            output_filename = os.path.join(PROJECT_ROOT, 'images', 'final_shiny_image.jpg')
             img.save(output_filename)
             print(f"SUCCESS! Open '{output_filename}' to see the CLEAR result!")
         else:
